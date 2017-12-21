@@ -14,6 +14,7 @@ class Restaurant(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    menu_item = relationship('MenuItem', cascade = "delete")
 
 
 class MenuItem(Base):
@@ -25,7 +26,18 @@ class MenuItem(Base):
     price = Column(String(8))
     course = Column(String(250))
     restaurant_id = Column(Integer, ForeignKey('restaurant.id'))
-    restaurant = relationship(Restaurant, cascade="delete")
+    restaurant = relationship('Restaurant')
+
+    @property
+    def serialize(self):
+        #Return object data in easily serializeable format
+        return{
+            'name' : self.name,
+            'description' : self.description,
+            'id' : self.id,
+            'price' : self.price,
+            'course' : self.course,
+        }
 
 ####### insert at end of file #######
 
