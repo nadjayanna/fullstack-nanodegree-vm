@@ -25,7 +25,7 @@ class MenuItem(Base):
     price = Column(String(8))
     course = Column(String(250))
     restaurant_id = Column(Integer, ForeignKey('restaurant.id'))
-    restaurant = relationship(Restaurant)
+    restaurant = relationship(Restaurant, cascade="delete")
 
 ####### insert at end of file #######
 
